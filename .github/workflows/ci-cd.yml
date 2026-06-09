@@ -34,45 +34,62 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-      
+
       - name: Install SASS
         run: npm install -g sass
-      
+
       - name: Compile SASS to CSS
         run: |
-          # Encontra todos os arquivos .scss e compila para .css no mesmo diretório
-          find . -name "*.scss" -type f | while read file; do
-            dir=$(dirname "$file")
-            base=$(basename "$file" .scss)
-            sass "$file" "$dir/$base.css"
-          done
-      
+          # Cria a pasta css se não existir
+          mkdir -p css
+          # Compila todos os arquivos .scss da pasta sass/ para css/
+          sass sass/:css/ --style compressed
+
       - name: Prepare deployment directory
         run: |
+          # Cria a pasta de deploy
           mkdir -p site
-          # Copia todos os arquivos relevantes
+
+          # Copia arquivos HTML
           cp -r ./*.html site/ 2>/dev/null || true
+
+          # Copia arquivos CSS gerados
           cp -r ./css site/ 2>/dev/null || true
-          cp -r ./js site/ 2>/dev/null || true
+
+          # Copia JavaScript
+          cp -r ./src site/ 2>/dev/null || true
+
+          # Copia imagens e assets
+          cp -r ./img site/ 2>/dev/null || true
           cp -r ./assets site/ 2>/dev/null || true
           cp -r ./images site/ 2>/dev/null || true
-          # Se houver outras pastas, adicione
-          # Verifica se index.html existe
+
+          # Copia outras pastas relevantes (ex: fonts, vendor, etc.)
+          for dir in */; do
+            if [[ ! "$dir" =~ ^(\.git|\.github|site|sass|css|src|img|assets|images)$ ]]; then
+              cp -r "$dir" site/ 2>/dev/null || true
+            fi
+          done
+
+          # Verifica se o index.html foi copiado
           if [ ! -f "site/index.html" ]; then
-            echo "ERRO: index.html não encontrado"
+            echo "ERRO: index.html não encontrado na pasta site/"
             exit 1
           fi
-      
+
+          echo "Conteúdo final da pasta site:"
+          ls -la site/
+
       - name: Upload artifact for Pages
         uses: actions/upload-pages-artifact@v3
         with:
           path: site
-      
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
