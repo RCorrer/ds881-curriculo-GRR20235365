@@ -1,4 +1,4 @@
-# Portfolio V2
+# Portfolio
 
 Second version of my personal portfolio to demonstrate projects and works.
 
