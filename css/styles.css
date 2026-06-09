@@ -1,0 +1,311 @@
+@charset "UTF-8";
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  list-style: none;
+  background: none;
+  border: none;
+  color: inherit;
+  text-decoration: none;
+  font-family: "Source Sans 3", sans-serif;
+}
+
+body {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 33% 67%;
+  background-image: url("../img/bg-3.jpg");
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+@media (max-width: 1023px) {
+  body {
+    display: flex;
+    flex-direction: column;
+    background-attachment: fixed;
+    align-items: center;
+    overflow-x: hidden;
+  }
+}
+
+aside {
+  color: #FFFFFF;
+  text-shadow: 0 0 4px rgb(0, 0, 0);
+}
+aside .introContainer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  padding: 5%;
+}
+@media (max-width: 1023px) {
+  aside .introContainer {
+    width: 100vw;
+  }
+}
+aside .introContainer h1 {
+  font-size: 220%;
+}
+aside .introContainer p {
+  font-size: 130%;
+}
+
+footer .icon {
+  display: flex;
+  justify-content: center;
+  gap: 10%;
+}
+footer .icon a i {
+  font-size: 200%;
+}
+footer .icon a:hover {
+  color: #67252b;
+}
+
+main {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(3px);
+  padding: 5%;
+  overflow-y: auto;
+  border-left: 3px solid #FFFFFF;
+  color: #FFFFFF;
+  text-shadow: 0 0 4px rgb(0, 0, 0);
+}
+main .button {
+  display: inline-block;
+  border-radius: 4px;
+  border: 2px solid #FFFFFF;
+  color: #FFFFFF;
+  background-color: #67252b;
+  text-align: center;
+  font-size: 110%;
+  padding: 2%;
+  width: 40%;
+  transition: all 0.5s;
+  margin: 5px;
+}
+main .button a {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+main .button a:after {
+  content: "»";
+  position: absolute;
+  opacity: 0;
+  top: -60%;
+  right: -20px;
+  transition: 0.5s;
+  font-size: 200%;
+}
+main .button:hover a {
+  padding-right: 25px;
+}
+main .button:hover a:after {
+  opacity: 1;
+  right: 0;
+}
+@media (max-width: 1023px) {
+  main {
+    overflow-y: visible;
+    width: 95%;
+    border: none;
+    border-radius: 15px;
+  }
+}
+main h1 {
+  text-align: center;
+  font-size: 300%;
+  border-bottom: 3px solid #FFFFFF;
+  text-transform: uppercase;
+}
+main ul {
+  width: 100%;
+  margin-top: 5%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+main ul li {
+  width: 100%;
+  aspect-ratio: 3/1;
+  border-radius: 15px;
+  display: flex;
+  padding: 2%;
+  gap: 1rem;
+}
+@media (max-width: 600px) {
+  main ul li {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+main ul li section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 50%;
+}
+@media (max-width: 600px) {
+  main ul li section {
+    width: 100%;
+  }
+}
+main ul li section span h2 {
+  font-size: 2vw;
+  border-bottom: 3px solid #FFFFFF;
+  text-transform: uppercase;
+}
+@media (max-width: 1023px) {
+  main ul li section span h2 {
+    font-size: 3vw;
+  }
+}
+@media (max-width: 600px) {
+  main ul li section span h2 {
+    font-size: 6vw;
+  }
+}
+main ul li section span p {
+  font-size: 1.5vw;
+}
+@media (max-width: 1023px) {
+  main ul li section span p {
+    font-size: 2vw;
+  }
+}
+@media (max-width: 600px) {
+  main ul li section span p {
+    font-size: 4vw;
+  }
+}
+main ul li section .buttonContainer {
+  display: flex;
+  justify-content: space-around;
+}
+@media (max-width: 600px) {
+  main ul li section .buttonContainer {
+    margin-top: 1rem;
+  }
+}
+main ul li .img {
+  background-color: black;
+  width: 50%;
+  aspect-ratio: 16/9;
+  border-radius: 5px;
+}
+@media (max-width: 600px) {
+  main ul li .img {
+    width: 70%;
+  }
+}
+
+#project-8 .img {
+  background-image: url("../img/project-8.png");
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#project-7 {
+  flex-direction: row-reverse;
+  text-align: end;
+}
+@media (max-width: 600px) {
+  #project-7 {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+#project-7 .img {
+  background-image: url("../img/project-7.png");
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#project-6 .img {
+  background-image: url("../img/project-6.png");
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#project-5 {
+  flex-direction: row-reverse;
+  text-align: end;
+}
+@media (max-width: 600px) {
+  #project-5 {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+#project-5 .img {
+  background-image: url("../img/project-5.png");
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#project-4 .img {
+  background-image: url("../img/project-4.png");
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#project-3 {
+  flex-direction: row-reverse;
+  text-align: end;
+}
+@media (max-width: 600px) {
+  #project-3 {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+#project-3 .img {
+  background-image: url("../img/project-3.png");
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#project-2 .img {
+  background-image: url("../img/project-2.png");
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#project-1 {
+  flex-direction: row-reverse;
+  text-align: end;
+}
+@media (max-width: 600px) {
+  #project-1 {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+#project-1 .img {
+  background-image: url("../img/project-1.png");
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/*# sourceMappingURL=styles.css.map */
