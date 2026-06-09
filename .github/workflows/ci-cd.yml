@@ -21,30 +21,58 @@ jobs:
           sudo npm install -g jshint
           jshint ./*.js
 
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     needs: lint
-    steps:
-      - uses: actions/checkout@v4
-      - name: Validate build
-        run: |
-          echo "Build validation: Checking for index.html..."
-          if [ ! -f "./index.html" ]; then exit 1; fi
-          echo "Build successful!"
-
-  deploy:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: build
-    runs-on: ubuntu-latest
     permissions:
+      contents: write
       pages: write
       id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/configure-pages@v4
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          path: '.'
-      - uses: actions/deploy-pages@v4
+          node-version: '18'
+      
+      - name: Install SASS
+        run: npm install -g sass
+      
+      - name: Compile SASS to CSS
+        run: |
+          # Encontra todos os arquivos .scss e compila para .css no mesmo diretório
+          find . -name "*.scss" -type f | while read file; do
+            dir=$(dirname "$file")
+            base=$(basename "$file" .scss)
+            sass "$file" "$dir/$base.css"
+          done
+      
+      - name: Prepare deployment directory
+        run: |
+          mkdir -p site
+          # Copia todos os arquivos relevantes
+          cp -r ./*.html site/ 2>/dev/null || true
+          cp -r ./css site/ 2>/dev/null || true
+          cp -r ./js site/ 2>/dev/null || true
+          cp -r ./assets site/ 2>/dev/null || true
+          cp -r ./images site/ 2>/dev/null || true
+          # Se houver outras pastas, adicione
+          # Verifica se index.html existe
+          if [ ! -f "site/index.html" ]; then
+            echo "ERRO: index.html não encontrado"
+            exit 1
+          fi
+      
+      - name: Upload artifact for Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
