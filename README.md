@@ -33,3 +33,49 @@ Siga os passos abaixo para executar o projeto em seu computador **sem precisar i
    ```bash
    git clone https://github.com/RCorrer/ds881-curriculo-GRR20235365.git
    cd ds881-curriculo-GRR20235365
+
+2. **Inicie o servidor de desenvolvimento com Docker Compose**
+
+   ```bash
+   docker-compose up
+
+3. **Acesse no navegador**
+Abra http://localhost:8080. O servidor possui hot-reload: qualquer alteração no código é refletida automaticamente.
+
+## 🛡️ Proteção da branch `main` (Branch Protection)
+
+Conforme exigido no trabalho, a branch `main` está protegida com as seguintes regras:
+
+- **Require a pull request before merging** – nenhum commit pode ser feito diretamente na `main`. Toda alteração exige um Pull Request.
+- **Require status checks to pass before merging** – o merge só é permitido se todos os checks do CI/CD (lint, build) estiverem verdes.
+
+### Evidência da configuração
+
+![Proteção da branch main](branch-protection.png)
+
+
+---
+
+## 🔧 Tecnologias e ferramentas utilizadas
+
+- **HTML5, CSS3, SASS, JavaScript** – front-end do portfólio
+- **Docker & Docker Compose** – conteinerização do ambiente de desenvolvimento
+- **GitHub Actions** – pipeline de CI/CD (lint, build, deploy)
+- **GitHub Pages** – hospedagem do site estático
+
+---
+
+## 📦 Estrutura do pipeline de CI/CD
+
+O arquivo `.github/workflows/ci-cd.yml` executa as seguintes etapas:
+
+1. **Lint** – verifica sintaxe dos arquivos HTML e JS.
+2. **Build** – compila SASS para CSS e prepara a pasta `site/` com todos os arquivos necessários (HTML, CSS, JS, imagens).
+3. **Deploy** – publica o conteúdo da pasta `site/` no GitHub Pages (após merges na `main`).
+
+---
+
+## 📝 Licença
+
+Este projeto é de uso pessoal e educacional.  
+Desenvolvido por **Rafael Fernando Nunho Correr**.
